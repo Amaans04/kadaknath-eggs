@@ -5,7 +5,6 @@ import { BRAND_NAME, TAGLINE, WHATSAPP_NUMBER, PRODUCT_PACKS, FAQS, COMPARISON_D
 import { ProteinCalculator } from './components/ProteinCalculator';
 import { SubscriptionSection } from './components/SubscriptionSection';
 import { TermsPage, PrivacyPage } from './components/LegalPages';
-import { generateHeroImage } from './services/imageService';
 
 // --- Components ---
 
@@ -129,13 +128,13 @@ const Footer = ({ setActivePage }: { setActivePage: (page: string) => void }) =>
             </p>
             <div className="flex space-x-3 md:space-x-4">
               <a href="#" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-gold hover:text-brand-black transition-all" aria-label="Instagram">
-                <Instagram size={18} className="md:w-[20px] md:h-[20px]" />
+                <Instagram size={18} className="md:w-5 md:h-5" />
               </a>
               <a href="#" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-gold hover:text-brand-black transition-all" aria-label="Facebook">
-                <Facebook size={18} className="md:w-[20px] md:h-[20px]" />
+                <Facebook size={18} className="md:w-5 md:h-5" />
               </a>
               <a href="#" className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-gold hover:text-brand-black transition-all" aria-label="Twitter">
-                <Twitter size={18} className="md:w-[20px] md:h-[20px]" />
+                <Twitter size={18} className="md:w-5 md:h-5" />
               </a>
             </div>
           </div>
@@ -171,11 +170,11 @@ const Footer = ({ setActivePage }: { setActivePage: (page: string) => void }) =>
             <h3 className="text-base md:text-lg font-semibold mb-4 md:mb-6 text-brand-gold">Contact Us</h3>
             <ul className="space-y-2 md:space-y-4">
               <li className="flex items-start gap-3 text-xs md:text-sm text-gray-400">
-                <MapPin size={16} className="text-brand-gold shrink-0 md:w-[18px] md:h-[18px]" />
+                <MapPin size={16} className="text-brand-gold shrink-0 md:w-4.5 md:h-4.5" />
                 <span>{CONTACT_ADDRESS}</span>
               </li>
               <li className="flex items-center gap-3 text-xs md:text-sm text-gray-400">
-                <Phone size={16} className="text-brand-gold shrink-0 md:w-[18px] md:h-[18px]" />
+                <Phone size={16} className="text-brand-gold shrink-0 md:w-4.5 md:h-4.5" />
                 <span>{WHATSAPP_NUMBER}</span>
               </li>
 
@@ -215,7 +214,7 @@ const WhatsAppButton = () => (
     className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-12 h-12 md:w-14 md:h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform active:scale-95 group"
     aria-label="Order on WhatsApp"
   >
-    <MessageCircle size={24} className="md:w-[32px] md:h-[32px]" />
+    <MessageCircle size={24} className="md:w-8 md:h-8" />
     <span className="absolute right-full mr-3 bg-white text-brand-black px-3 py-1 rounded-lg text-sm font-medium shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none hidden md:block">
       Order on WhatsApp
     </span>
@@ -224,19 +223,43 @@ const WhatsAppButton = () => (
 
 // --- Pages ---
 
+const HERO_ANIMATION_KEY = 'kadak-hero-animated';
+
+const heroContentContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.65,
+      staggerChildren: 0.22,
+    },
+  },
+};
+
+const heroContentItemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.1,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
 const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) => {
-  const [heroImage, setHeroImage] = useState<string | null>(null);
+  const [heroInitialState, setHeroInitialState] = useState<'hidden' | 'visible'>(() => {
+    if (typeof window === 'undefined') return 'hidden';
+    return sessionStorage.getItem(HERO_ANIMATION_KEY) === 'true' ? 'visible' : 'hidden';
+  });
 
   useEffect(() => {
-    const loadImage = async () => {
-      try {
-        const img = await generateHeroImage();
-        setHeroImage(img);
-      } catch (error) {
-        console.error("Failed to generate hero image:", error);
-      }
-    };
-    loadImage();
+    if (typeof window === 'undefined') return;
+    if (sessionStorage.getItem(HERO_ANIMATION_KEY) !== 'true') {
+      sessionStorage.setItem(HERO_ANIMATION_KEY, 'true');
+      setHeroInitialState('hidden');
+    }
   }, []);
 
   return (
@@ -244,49 +267,50 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
       {/* Hero Section */}
       <section className="relative min-h-[80vh] md:min-h-[95vh] flex items-center overflow-hidden bg-brand-black">
         <motion.div 
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.5 }}
-          transition={{ duration: 1.5 }}
+          initial={{ scale: 1.03, opacity: 1 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.6, ease: 'easeOut' }}
           className="absolute inset-0 z-0"
         >
-          {heroImage ? (
-            <img
-              src={heroImage}
-              alt="Premium Kadaknath Eggs Bengaluru"
-              className="w-full h-full object-cover"
-              referrerPolicy="no-referrer"
-            />
-          ) : (
-            <div className="w-full h-full bg-brand-black flex items-center justify-center">
-              <div className="w-12 h-12 border-4 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          )}
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-black/80 via-brand-black/40 to-brand-black"></div>
+          <img
+            src="/hero-bg.jpeg"
+            alt="Premium Kadaknath Eggs Bengaluru"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-linear-to-b from-brand-black/82 via-brand-black/52 to-brand-black"></div>
         </motion.div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 md:py-32">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={heroContentContainerVariants}
+            initial={heroInitialState}
+            animate="visible"
             className="max-w-3xl"
           >
             <motion.span 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              variants={heroContentItemVariants}
               className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-brand-gold/10 text-brand-gold text-[10px] md:text-xs font-bold tracking-widest uppercase mb-6 md:mb-8 border border-brand-gold/20 backdrop-blur-sm"
             >
               <Star size={14} className="fill-brand-gold" />
-              Best Kadaknath Eggs in Bengaluru
+              India’s Most Premium Kadaknath Eggs
             </motion.span>
-            <h1 className="text-4xl md:text-8xl font-extrabold text-white leading-[1.1] mb-6 md:mb-8 tracking-tighter">
+
+            <motion.h1
+              variants={heroContentItemVariants}
+              className="text-4xl md:text-8xl font-extrabold text-white leading-[1.1] mb-6 md:mb-8 tracking-tighter"
+            >
               The Gold Standard of <span className="text-brand-gold">Nutrition.</span>
-            </h1>
-            <p className="text-lg md:text-2xl text-gray-300 mb-8 md:mb-12 leading-relaxed font-medium">
-              Experience the power of <span className="text-white font-bold">Kali Masi</span>. Premium, farm-fresh Kadaknath eggs delivered across <span className="text-brand-gold">JP Nagar, BTM, and Jayanagar</span>.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+            </motion.h1>
+
+            <motion.p
+              variants={heroContentItemVariants}
+              className="text-lg md:text-2xl text-gray-300 mb-8 md:mb-12 leading-relaxed font-medium"
+            >
+              Experience the power of <span className="text-white font-bold">Kali Masi</span>. Premium, farm-fresh Kadaknath eggs delivered across <span className="text-brand-gold">Bengaluru</span>, with active service in <span className="text-brand-gold">JP Nagar, BTM, and Jayanagar</span>.
+            </motion.p>
+
+            <motion.div variants={heroContentItemVariants} className="flex flex-col sm:flex-row gap-4 md:gap-6">
               <motion.a 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -302,12 +326,12 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActivePage('benefits')} 
-                className="btn-secondary !border-white/30 !text-white hover:bg-white/10 text-lg px-8 py-4 backdrop-blur-sm"
+                className="btn-secondary border-white/30! text-white! hover:bg-white/10 text-lg px-8 py-4 backdrop-blur-sm"
               >
                 Explore Benefits
                 <ArrowRight size={20} />
               </motion.button>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
         
@@ -346,7 +370,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="md:col-span-8 p-8 md:p-12 rounded-[2rem] bg-brand-black text-white relative overflow-hidden group"
+              className="md:col-span-8 p-8 md:p-12 rounded-4xl bg-brand-black text-white relative overflow-hidden group"
             >
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-brand-gold/20 rounded-2xl flex items-center justify-center mb-8 text-brand-gold">
@@ -366,7 +390,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="md:col-span-4 p-8 rounded-[2rem] bg-brand-gold text-brand-black flex flex-col justify-between"
+              className="md:col-span-4 p-8 rounded-4xl bg-brand-gold text-brand-black flex flex-col justify-between"
             >
               <div className="w-12 h-12 bg-black/10 rounded-xl flex items-center justify-center mb-6">
                 <Heart size={24} aria-hidden="true" />
@@ -385,7 +409,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="md:col-span-4 p-8 rounded-[2rem] bg-brand-white border border-gray-100 flex flex-col justify-between group hover:border-brand-gold/30 transition-all"
+              className="md:col-span-4 p-8 rounded-4xl bg-brand-white border border-gray-100 flex flex-col justify-between group hover:border-brand-gold/30 transition-all"
             >
               <div className="w-12 h-12 bg-brand-gold/10 rounded-xl flex items-center justify-center mb-6 text-brand-gold group-hover:scale-110 transition-transform">
                 <ShieldCheck size={24} aria-hidden="true" />
@@ -404,7 +428,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="md:col-span-8 p-8 md:p-12 rounded-[2rem] bg-brand-green text-white relative overflow-hidden"
+              className="md:col-span-8 p-8 md:p-12 rounded-4xl bg-brand-green text-white relative overflow-hidden"
             >
               <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
                 <div className="md:w-2/3">
@@ -431,7 +455,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
             <div className="shrink-0">
               <h2 className="text-xl md:text-2xl font-bold text-brand-gold">Delivering to:</h2>
             </div>
-            <div className="flex-grow overflow-hidden relative">
+            <div className="grow overflow-hidden relative">
               <motion.div 
                 animate={{ x: [0, -1000] }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -443,8 +467,8 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                   </span>
                 ))}
               </motion.div>
-              <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-brand-black to-transparent z-10"></div>
-              <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-brand-black to-transparent z-10"></div>
+              <div className="absolute inset-y-0 left-0 w-20 bg-linear-to-r from-brand-black to-transparent z-10"></div>
+              <div className="absolute inset-y-0 right-0 w-20 bg-linear-to-l from-brand-black to-transparent z-10"></div>
             </div>
           </div>
         </div>
@@ -461,11 +485,11 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
               </p>
               <div className="grid grid-cols-2 gap-6">
                 <div className="p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
-                  <h4 className="text-3xl font-black text-brand-gold mb-1">24h</h4>
+                  <h4 className="text-3xl font-black text-brand-gold mb-1">12h</h4>
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Delivery Time</p>
                 </div>
                 <div className="p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
-                  <h4 className="text-3xl font-black text-brand-gold mb-1">10k+</h4>
+                  <h4 className="text-3xl font-black text-brand-gold mb-1">5k+</h4>
                   <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Happy Customers</p>
                 </div>
               </div>
@@ -478,7 +502,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                   className="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-brand-black/80 via-transparent to-transparent"></div>
                 
                 {/* Animated Eggs "Popping" over delivery areas */}
                 {[
@@ -598,7 +622,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-8 rounded-[2rem] bg-brand-white border border-gray-100 relative"
+                className="p-8 rounded-4xl bg-brand-white border border-gray-100 relative"
               >
                 <div className="flex gap-1 mb-6">
                   {[...Array(5)].map((_, i) => <Star key={i} size={16} className="fill-brand-gold text-brand-gold" aria-hidden="true" />)}
@@ -626,8 +650,8 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                   className="rounded-2xl md:rounded-3xl shadow-2xl relative z-10"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute -top-4 md:-top-6 -left-4 md:-left-6 w-24 md:w-32 h-24 md:h-32 bg-brand-gold rounded-2xl md:rounded-3xl -z-0 opacity-20"></div>
-                <div className="absolute -bottom-4 md:-bottom-6 -right-4 md:-right-6 w-24 md:w-32 h-24 md:h-32 bg-brand-green rounded-2xl md:rounded-3xl -z-0 opacity-20"></div>
+                <div className="absolute -top-4 md:-top-6 -left-4 md:-left-6 w-24 md:w-32 h-24 md:h-32 bg-brand-gold rounded-2xl md:rounded-3xl z-0 opacity-20"></div>
+                <div className="absolute -bottom-4 md:-bottom-6 -right-4 md:-right-6 w-24 md:w-32 h-24 md:h-32 bg-brand-green rounded-2xl md:rounded-3xl z-0 opacity-20"></div>
               </div>
             </div>
             <div className="lg:w-1/2">
@@ -642,7 +666,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 ].map((item, idx) => (
                   <div key={idx} className="flex gap-3 md:gap-4">
                     <div className="mt-1 text-brand-green">
-                      <CheckCircle2 size={20} className="md:w-[24px] md:h-[24px]" aria-hidden="true" />
+                      <CheckCircle2 size={20} className="md:w-6 md:h-6" aria-hidden="true" />
                     </div>
                     <div>
                       <h4 className="font-bold text-base md:text-lg mb-1">{item.title}</h4>
@@ -690,18 +714,18 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                     Best Value Pack
                   </div>
                 )}
-                <div className="p-6 md:p-10 pt-6 md:pt-10 flex flex-col flex-grow">
+                <div className="p-6 md:p-10 pt-6 md:pt-10 flex flex-col grow">
                   <div className="mb-4 md:mb-6">
                     <h3 className="text-xl md:text-2xl font-bold mb-1 text-brand-black">{pack.name}</h3>
                     <p className="text-brand-gold font-bold text-[10px] uppercase tracking-wider">{pack.bestFor}</p>
                   </div>
-                  <div className="mb-6 md:mb-8 flex-grow">
+                  <div className="mb-6 md:mb-8 grow">
                     <p className="text-gray-600 text-xs md:text-sm leading-relaxed mb-6 md:mb-8">{pack.description}</p>
                     <h4 className="text-[10px] font-black text-brand-black uppercase tracking-[0.2em] mb-3 md:mb-4">Key Features</h4>
                     <ul className="space-y-2 md:space-y-3">
                       {['100% Original Kadaknath', 'Fresh from Farm', 'Hygienically Packed'].map((feature, fIdx) => (
                         <li key={fIdx} className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-700">
-                          <CheckCircle2 size={16} className="text-brand-green shrink-0 md:w-[18px] md:h-[18px]" />
+                          <CheckCircle2 size={16} className="text-brand-green shrink-0 md:w-4.5 md:h-4.5" />
                           <span>{feature}</span>
                         </li>
                       ))}
@@ -857,9 +881,9 @@ const BenefitsPage = () => (
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-24">
         {[
-          { title: "Protein Power", val: "25% More", desc: "Higher protein density compared to regular eggs, essential for tissue repair.", icon: <Dumbbell className="md:w-[32px] md:h-[32px]" /> },
-          { title: "Cholesterol", val: "< 1%", desc: "Extremely low cholesterol levels make it safe for heart patients.", icon: <Heart className="md:w-[32px] md:h-[32px]" /> },
-          { title: "Iron Rich", val: "High Iron", desc: "Significantly higher iron content helps boost hemoglobin levels.", icon: <Zap className="md:w-[32px] md:h-[32px]" /> }
+          { title: "Protein Power", val: "25% More", desc: "Higher protein density compared to regular eggs, essential for tissue repair.", icon: <Dumbbell className="md:w-8 md:h-8" /> },
+          { title: "Cholesterol", val: "< 1%", desc: "Extremely low cholesterol levels make it safe for heart patients.", icon: <Heart className="md:w-8 md:h-8" /> },
+          { title: "Iron Rich", val: "High Iron", desc: "Significantly higher iron content helps boost hemoglobin levels.", icon: <Zap className="md:w-8 md:h-8" /> }
         ].map((item, idx) => (
           <div key={idx} className="bg-white p-8 md:p-10 rounded-2xl md:rounded-3xl border border-gray-100 shadow-xl text-center">
             <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-gold/10 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 text-brand-gold">
@@ -950,12 +974,12 @@ const ProductsPage = () => (
                 Best Value Pack
               </div>
             )}
-            <div className="p-10 pt-10 flex flex-col flex-grow">
+            <div className="p-10 pt-10 flex flex-col grow">
               <div className="mb-6">
                 <h3 className="text-2xl font-bold mb-1 text-brand-black">{pack.name}</h3>
                 <p className="text-brand-gold font-bold text-xs uppercase tracking-wider">{pack.bestFor}</p>
               </div>
-              <div className="mb-8 flex-grow">
+              <div className="mb-8 grow">
                 <p className="text-gray-600 text-sm leading-relaxed mb-8">{pack.description}</p>
                 <h4 className="text-[10px] font-black text-brand-black uppercase tracking-[0.2em] mb-4">Key Features</h4>
                 <ul className="space-y-3">
@@ -1006,7 +1030,7 @@ const ProductsPage = () => (
       <div className="mt-12 md:mt-24 p-8 md:p-12 bg-brand-white rounded-2xl md:rounded-[3rem] border border-gray-100 flex flex-col md:flex-row items-center gap-8 md:gap-12">
         <div className="md:w-1/3 flex flex-col items-center md:items-start">
           <div className="w-16 h-16 md:w-24 md:h-24 bg-brand-gold rounded-2xl md:rounded-3xl flex items-center justify-center text-brand-black mb-4 md:mb-6">
-            <ShoppingCart size={32} className="md:w-[48px] md:h-[48px]" />
+            <ShoppingCart size={32} className="md:w-12 md:h-12" />
           </div>
           <h2 className="text-2xl md:text-3xl font-bold">Bulk Orders</h2>
         </div>
@@ -1044,7 +1068,7 @@ const FAQPage = () => {
               >
                 <span className="font-bold text-sm md:text-lg text-brand-black pr-4">{faq.question}</span>
                 <div className={`transition-transform duration-300 ${openIdx === idx ? 'rotate-180' : ''} shrink-0`}>
-                  <ChevronRight size={20} className="text-brand-gold md:w-[24px] md:h-[24px]" />
+                  <ChevronRight size={20} className="text-brand-gold md:w-6 md:h-6" />
                 </div>
               </button>
               <AnimatePresence>
@@ -1213,8 +1237,8 @@ const ContactPage = () => {
               </div>
               <button type="submit" className="btn-primary w-full py-3 md:py-4 text-base md:text-lg">
                 {submitted ? 'Message Sent!' : 'Send Message'}
-                {!submitted && <ArrowRight size={18} className="md:w-[20px] md:h-[20px]" />}
-                {submitted && <CheckCircle2 size={18} className="text-brand-gold md:w-[20px] md:h-[20px]" />}
+                {!submitted && <ArrowRight size={18} className="md:w-5 md:h-5" />}
+                {submitted && <CheckCircle2 size={18} className="text-brand-gold md:w-5 md:h-5" />}
               </button>
             </form>
           </div>
@@ -1238,7 +1262,7 @@ export default function App() {
       <a href="#main-content" className="skip-to-content">Skip to main content</a>
       <Navbar activePage={activePage} setActivePage={setActivePage} />
       
-      <main id="main-content" className="flex-grow">
+      <main id="main-content" className="grow">
         <AnimatePresence mode="wait">
           <motion.div
             key={activePage}
