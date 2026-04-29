@@ -38,7 +38,11 @@ export const PRODUCT_PACKS: ProductPack[] = [
     pricePerEgg: 25,
     totalPrice: 150,
     deliveryNote: 'Small delivery charge may apply depending on location',
+<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1506976785307-8732e854ad03?q=80&w=1000&auto=format&fit=crop'
+=======
+    image: '/Images/6.jpeg'
+>>>>>>> 3ee0743 (Initial commit)
   },
   {
     id: 'pack-12',
@@ -49,7 +53,12 @@ export const PRODUCT_PACKS: ProductPack[] = [
     pricePerEgg: 25,
     totalPrice: 300,
     deliveryNote: 'Small delivery charge may apply depending on location',
+<<<<<<< HEAD
     image: 'https://picsum.photos/seed/egg12/600/400'
+=======
+    image: '/Images/12.jpeg'
+
+>>>>>>> 3ee0743 (Initial commit)
   },
   {
     id: 'pack-30',
@@ -61,7 +70,12 @@ export const PRODUCT_PACKS: ProductPack[] = [
     totalPrice: 690,
     deliveryNote: 'Free Delivery',
     isBestValue: true,
+<<<<<<< HEAD
     image: 'https://picsum.photos/seed/egg30/600/400'
+=======
+    image: '/Images/30.jpeg'
+
+>>>>>>> 3ee0743 (Initial commit)
   }
 ];
 

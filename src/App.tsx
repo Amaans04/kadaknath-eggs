@@ -552,15 +552,33 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 className="absolute -top-6 -right-6 p-4 bg-white rounded-2xl shadow-xl border border-gray-100 z-20"
               >
                 <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Now in</p>
+<<<<<<< HEAD
                 <p className="font-bold">JP Nagar 7th Phase</p>
+=======
+<<<<<<< HEAD
+                <p className="font-bold">JP Nagar 7th Phase</p>
+=======
+                <p className="font-bold">BTM Layout</p>
+>>>>>>> a13923c (minor media addition and changes)
+>>>>>>> 3ee0743 (Initial commit)
               </motion.div>
               <motion.div 
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
                 className="absolute -bottom-6 -left-6 p-4 bg-white rounded-2xl shadow-xl border border-gray-100 z-20"
               >
+<<<<<<< HEAD
                 <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Serving</p>
                 <p className="font-bold">Jayanagar 4th Block</p>
+=======
+<<<<<<< HEAD
+                <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Serving</p>
+                <p className="font-bold">Jayanagar 4th Block</p>
+=======
+                <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Serving around</p>
+                <p className="font-bold">HSR Layout</p>
+>>>>>>> a13923c (minor media addition and changes)
+>>>>>>> 3ee0743 (Initial commit)
               </motion.div>
             </div>
           </div>
@@ -720,6 +738,24 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                     <p className="text-brand-gold font-bold text-[10px] uppercase tracking-wider">{pack.bestFor}</p>
                   </div>
                   <div className="mb-6 md:mb-8 grow">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+                    <div className="relative mb-5 md:mb-6 overflow-hidden rounded-xl md:rounded-2xl border border-gray-100 bg-gray-50">
+                      <img
+                        src={pack.image}
+                        alt={`${pack.name} Kadaknath eggs pack`}
+                        className="w-full h-36 md:h-44 object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute top-2.5 right-2.5 md:top-3 md:right-3 bg-brand-black/85 text-white text-[10px] md:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
+                        {pack.count} Eggs
+                      </div>
+                    </div>
+>>>>>>> a13923c (minor media addition and changes)
+>>>>>>> 3ee0743 (Initial commit)
                     <p className="text-gray-600 text-xs md:text-sm leading-relaxed mb-6 md:mb-8">{pack.description}</p>
                     <h4 className="text-[10px] font-black text-brand-black uppercase tracking-[0.2em] mb-3 md:mb-4">Key Features</h4>
                     <ul className="space-y-2 md:space-y-3">
@@ -980,6 +1016,24 @@ const ProductsPage = () => (
                 <p className="text-brand-gold font-bold text-xs uppercase tracking-wider">{pack.bestFor}</p>
               </div>
               <div className="mb-8 grow">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+                <div className="relative mb-6 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50">
+                  <img
+                    src={pack.image}
+                    alt={`${pack.name} Kadaknath eggs pack`}
+                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute top-3 right-3 bg-brand-black/85 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                    {pack.count} Eggs
+                  </div>
+                </div>
+>>>>>>> a13923c (minor media addition and changes)
+>>>>>>> 3ee0743 (Initial commit)
                 <p className="text-gray-600 text-sm leading-relaxed mb-8">{pack.description}</p>
                 <h4 className="text-[10px] font-black text-brand-black uppercase tracking-[0.2em] mb-4">Key Features</h4>
                 <ul className="space-y-3">
