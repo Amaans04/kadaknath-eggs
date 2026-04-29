@@ -552,33 +552,15 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 className="absolute -top-6 -right-6 p-4 bg-white rounded-2xl shadow-xl border border-gray-100 z-20"
               >
                 <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Now in</p>
-<<<<<<< HEAD
                 <p className="font-bold">JP Nagar 7th Phase</p>
-=======
-<<<<<<< HEAD
-                <p className="font-bold">JP Nagar 7th Phase</p>
-=======
-                <p className="font-bold">BTM Layout</p>
->>>>>>> a13923c (minor media addition and changes)
->>>>>>> 3ee0743 (Initial commit)
               </motion.div>
               <motion.div 
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
                 className="absolute -bottom-6 -left-6 p-4 bg-white rounded-2xl shadow-xl border border-gray-100 z-20"
               >
-<<<<<<< HEAD
                 <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Serving</p>
                 <p className="font-bold">Jayanagar 4th Block</p>
-=======
-<<<<<<< HEAD
-                <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Serving</p>
-                <p className="font-bold">Jayanagar 4th Block</p>
-=======
-                <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Serving around</p>
-                <p className="font-bold">HSR Layout</p>
->>>>>>> a13923c (minor media addition and changes)
->>>>>>> 3ee0743 (Initial commit)
               </motion.div>
             </div>
           </div>
@@ -738,10 +720,6 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                     <p className="text-brand-gold font-bold text-[10px] uppercase tracking-wider">{pack.bestFor}</p>
                   </div>
                   <div className="mb-6 md:mb-8 grow">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
                     <div className="relative mb-5 md:mb-6 overflow-hidden rounded-xl md:rounded-2xl border border-gray-100 bg-gray-50">
                       <img
                         src={pack.image}
@@ -754,8 +732,6 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                         {pack.count} Eggs
                       </div>
                     </div>
->>>>>>> a13923c (minor media addition and changes)
->>>>>>> 3ee0743 (Initial commit)
                     <p className="text-gray-600 text-xs md:text-sm leading-relaxed mb-6 md:mb-8">{pack.description}</p>
                     <h4 className="text-[10px] font-black text-brand-black uppercase tracking-[0.2em] mb-3 md:mb-4">Key Features</h4>
                     <ul className="space-y-2 md:space-y-3">
@@ -1016,10 +992,6 @@ const ProductsPage = () => (
                 <p className="text-brand-gold font-bold text-xs uppercase tracking-wider">{pack.bestFor}</p>
               </div>
               <div className="mb-8 grow">
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
                 <div className="relative mb-6 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50">
                   <img
                     src={pack.image}
@@ -1032,8 +1004,6 @@ const ProductsPage = () => (
                     {pack.count} Eggs
                   </div>
                 </div>
->>>>>>> a13923c (minor media addition and changes)
->>>>>>> 3ee0743 (Initial commit)
                 <p className="text-gray-600 text-sm leading-relaxed mb-8">{pack.description}</p>
                 <h4 className="text-[10px] font-black text-brand-black uppercase tracking-[0.2em] mb-4">Key Features</h4>
                 <ul className="space-y-3">
