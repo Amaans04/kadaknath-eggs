@@ -552,7 +552,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 className="absolute -top-6 -right-6 p-4 bg-white rounded-2xl shadow-xl border border-gray-100 z-20"
               >
                 <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Now in</p>
-                <p className="font-bold">JP Nagar 7th Phase</p>
+                <p className="font-bold">HSR Layout</p>
               </motion.div>
               <motion.div 
                 animate={{ y: [0, 10, 0] }}
@@ -560,7 +560,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 className="absolute -bottom-6 -left-6 p-4 bg-white rounded-2xl shadow-xl border border-gray-100 z-20"
               >
                 <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest">Serving</p>
-                <p className="font-bold">Jayanagar 4th Block</p>
+                <p className="font-bold">BTM Layout</p>
               </motion.div>
             </div>
           </div>
