@@ -16,10 +16,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   
   body {
     @apply bg-brand-white text-brand-black font-sans antialiased selection:bg-brand-gold/30;
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4 {

@@ -34,24 +34,38 @@ export const SubscriptionSection = () => {
           >
             Get fresh Kadaknath eggs delivered to your doorstep regularly with our flexible subscription plans.
           </motion.p>
+          <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
+            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Swipe plans</span>
+            <motion.span
+              aria-hidden="true"
+              animate={{ x: [0, 10, 0], opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+              className="text-gray-400 text-sm"
+            >
+              →
+            </motion.span>
+          </div>
         </div>
 
         {/* Subscription Plans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10 mb-12 md:mb-16">
-          {SUBSCRIPTION_PLANS.map((plan, idx) => (
-            <motion.div
-              key={plan.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              whileHover={{ y: -10 }}
-              className={`relative flex flex-col h-full rounded-[2.5rem] p-8 md:p-10 transition-all duration-500 shadow-2xl ${
-                plan.id === 'fitness-plan' 
-                  ? 'bg-brand-black text-white ring-4 ring-brand-gold ring-offset-8 ring-offset-white' 
-                  : 'bg-brand-black text-white'
-              }`}
-            >
+        <div className="relative -mx-4 md:mx-0 overflow-x-hidden mb-12 md:mb-16">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-linear-to-r from-white to-transparent md:hidden" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-linear-to-l from-white to-transparent md:hidden" aria-hidden="true" />
+          <div className="flex gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory pt-6 pb-6 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-10 md:pt-0 md:pb-0 md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {SUBSCRIPTION_PLANS.map((plan, idx) => (
+              <motion.div
+                key={plan.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                whileHover={{ y: -10 }}
+                className={`relative flex flex-col h-full rounded-[2.5rem] p-8 md:p-10 transition-all duration-500 shadow-2xl shrink-0 w-[88%] sm:w-[70%] md:w-auto snap-start ${
+                  plan.id === 'fitness-plan' 
+                    ? 'bg-brand-black text-white ring-4 ring-brand-gold ring-offset-8 ring-offset-white' 
+                    : 'bg-brand-black text-white'
+                }`}
+              >
               {/* Badge */}
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-gold text-brand-black px-6 py-2 rounded-full text-[10px] font-black tracking-widest uppercase shadow-xl">
                 {plan.label}
@@ -129,8 +143,9 @@ export const SubscriptionSection = () => {
                 <MessageCircle size={22} aria-hidden="true" />
                 Subscribe on WhatsApp
               </a>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Trust Indicators */}

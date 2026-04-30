@@ -331,6 +331,15 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 Explore Benefits
                 <ArrowRight size={20} />
               </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setActivePage('products')} 
+                className="btn-secondary border-white/30! text-white! hover:bg-white/10 text-lg px-8 py-4 backdrop-blur-sm"
+              >
+                View Products
+                <ArrowRight size={20} />
+              </motion.button>
             </motion.div>
           </motion.div>
         </div>
@@ -608,9 +617,23 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
           <div className="text-center mb-16 md:mb-24">
             <h2 className="text-3xl md:text-6xl font-extrabold mb-6 tracking-tight">Loved by <span className="text-brand-gold">Health Enthusiasts</span></h2>
             <p className="text-lg text-gray-600">Join 5000+ families in Bengaluru choosing Kadaknath for their daily nutrition.</p>
+            <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Swipe to explore</span>
+              <motion.span
+                aria-hidden="true"
+                animate={{ x: [0, 10, 0], opacity: [0.6, 1, 0.6] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                className="text-gray-400 text-sm"
+              >
+                →
+              </motion.span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="relative -mx-4 md:mx-0 overflow-x-hidden">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-linear-to-r from-white to-transparent md:hidden" aria-hidden="true" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-linear-to-l from-white to-transparent md:hidden" aria-hidden="true" />
+            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {[
               { name: "Rahul Sharma", role: "Fitness Trainer, JP Nagar", text: "As a trainer, I always recommend Kadaknath eggs to my clients. The protein-to-cholesterol ratio is unbeatable. Kadak Eggs delivers the freshest batch every time." },
               { name: "Priya V.", role: "Nutritionist, Jayanagar", text: "I've been prescribing these eggs for my patients with low iron levels. The results are visible within weeks. Truly a superfood for Bengaluru households." },
@@ -622,7 +645,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-8 rounded-4xl bg-brand-white border border-gray-100 relative"
+                className="p-8 rounded-4xl bg-brand-white border border-gray-100 relative shrink-0 w-[85%] sm:w-[70%] md:w-auto snap-start"
               >
                 <div className="flex gap-1 mb-6">
                   {[...Array(5)].map((_, i) => <Star key={i} size={16} className="fill-brand-gold text-brand-gold" aria-hidden="true" />)}
@@ -634,6 +657,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 </div>
               </motion.div>
             ))}
+            </div>
           </div>
         </div>
       </section>
@@ -700,14 +724,28 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
           <div className="text-center mb-10 md:mb-16">
             <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6 text-brand-black">Choose Your Pack</h2>
             <p className="text-sm md:text-base text-gray-600">Premium nutrition delivered in convenient sizes.</p>
+            <div className="mt-5 flex items-center justify-center gap-2 md:hidden">
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Swipe to compare</span>
+              <motion.span
+                aria-hidden="true"
+                animate={{ x: [0, 10, 0], opacity: [0.6, 1, 0.6] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                className="text-gray-400 text-sm"
+              >
+                →
+              </motion.span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div className="relative -mx-4 md:mx-0 overflow-x-hidden">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-linear-to-r from-brand-white to-transparent md:hidden" aria-hidden="true" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-linear-to-l from-brand-white to-transparent md:hidden" aria-hidden="true" />
+            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {PRODUCT_PACKS.map((pack) => (
               <motion.div 
                 key={pack.id} 
                 whileHover={{ y: -10 }}
-                className="bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 shadow-md flex flex-col relative group transition-all duration-300 hover:shadow-xl overflow-hidden"
+                className="bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 shadow-md flex flex-col relative group transition-all duration-300 hover:shadow-xl overflow-hidden shrink-0 w-[88%] sm:w-[70%] md:w-auto snap-start"
               >
                 {pack.isBestValue && (
                   <div className="bg-brand-gold text-brand-black px-3 md:px-4 py-2 text-center text-[10px] font-black tracking-widest uppercase shadow-sm">
@@ -773,6 +811,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 </div>
               </motion.div>
             ))}
+            </div>
           </div>
         </div>
       </section>
