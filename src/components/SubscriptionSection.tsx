@@ -5,7 +5,7 @@ import { SUBSCRIPTION_PLANS, WHATSAPP_NUMBER } from '../constants';
 
 export const SubscriptionSection = () => {
   return (
-    <section id="subscription" className="py-12 md:py-24 bg-white overflow-hidden">
+    <section id="subscription" className="py-12 md:py-24 bg-white overflow-hidden md:overflow-visible">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-20">
           <motion.span 
@@ -48,7 +48,7 @@ export const SubscriptionSection = () => {
         </div>
 
         {/* Subscription Plans Grid */}
-        <div className="relative -mx-4 md:mx-0 overflow-x-hidden mb-12 md:mb-16">
+        <div className="relative -mx-4 md:mx-0 overflow-x-hidden md:overflow-visible mb-12 md:mb-16">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-linear-to-r from-white to-transparent md:hidden" aria-hidden="true" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-linear-to-l from-white to-transparent md:hidden" aria-hidden="true" />
           <div className="flex gap-6 overflow-x-auto overflow-y-visible snap-x snap-mandatory pt-6 pb-6 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-10 md:pt-0 md:pb-0 md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
