@@ -49,7 +49,7 @@ export const ProductPackSection = () => {
               A humble note on originality
             </p>
             <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
-              Since these are naturally farm-laid eggs, the eggs you receive may not all be the same size. This natural
+              Since these are naturally farm-laid eggs, the eggs you receive may not all be the same size and color. This natural
               variation is a sign of originality.
             </p>
           </div>
