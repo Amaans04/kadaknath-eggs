@@ -43,6 +43,16 @@ export const ProductPackSection = () => {
           >
             Premium Kadaknath eggs delivered fresh from farm to your doorstep.
           </motion.p>
+
+          <div className="mt-6 md:mt-8 text-left bg-white border border-brand-gold/20 rounded-2xl px-5 py-4 shadow-sm">
+            <p className="text-[10px] font-black text-brand-gold uppercase tracking-[0.25em] mb-1">
+              A humble note on originality
+            </p>
+            <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
+              Since these are naturally farm-laid eggs, the eggs you receive may not all be the same size. This natural
+              variation is a sign of originality.
+            </p>
+          </div>
         </div>
 
         {/* MOBILE */}

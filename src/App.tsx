@@ -6,7 +6,8 @@ import { ProteinCalculator } from './components/ProteinCalculator';
 import { SubscriptionSection } from './components/SubscriptionSection';
 import { ProductPackSection } from './components/ProductPackSection';
 import { TermsPage, PrivacyPage } from './components/LegalPages';
-
+import { Analytics } from '@vercel/analytics/react';
+import Credits  from './components/Credits';
 // --- Components ---
 
 const Navbar = ({ activePage, setActivePage }: { activePage: string, setActivePage: (page: string) => void }) => {
@@ -327,7 +328,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActivePage('benefits')} 
-                className="btn-secondary border-white/30! text-white! hover:bg-white/10 text-lg px-8 py-4 backdrop-blur-sm"
+                className="btn-secondary border-white/30! text-white! hover:bg-white/10 text-lg px-8 py-4 hover:backdrop-blur-sm"
               >
                 Explore Benefits
                 <ArrowRight size={20} />
@@ -336,7 +337,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActivePage('products')} 
-                className="btn-secondary border-white/30! text-white! hover:bg-white/10 text-lg px-8 py-4 backdrop-blur-sm"
+                className="btn-secondary border-white/30! text-white! hover:bg-white/10 text-lg px-8 py-4 hover:backdrop-blur-sm"
               >
                 View Products
                 <ArrowRight size={20} />
@@ -877,7 +878,7 @@ const BenefitsPage = () => (
             </ul>
           </div>
           <div className="md:w-1/2">
-            <img src="https://picsum.photos/seed/fitness/800/500" alt="Fitness" className="rounded-3xl shadow-lg" referrerPolicy="no-referrer" />
+            <img src="/Images/b1.png" alt="Fitness" className="rounded-3xl shadow-lg" referrerPolicy="no-referrer" />
           </div>
         </div>
 
@@ -900,7 +901,7 @@ const BenefitsPage = () => (
             </ul>
           </div>
           <div className="md:w-1/2">
-            <img src="https://picsum.photos/seed/child-health/800/500" alt="Children Health" className="rounded-3xl shadow-lg" referrerPolicy="no-referrer" />
+            <img src="/Images/img1.png" alt="Children Health" className="rounded-3xl shadow-lg" referrerPolicy="no-referrer" />
           </div>
         </div>
       </div>
@@ -1253,8 +1254,10 @@ export default function App() {
       </main>
 
       <Footer setActivePage={setActivePage} />
+      <Credits />
       <ScrollToTop />
       <WhatsAppButton />
+      <Analytics />
     </div>
   );
 }
