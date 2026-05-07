@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ais-dev-6iwucjdbjfzpzcqx7lrusk-291189104688.asia-east1.run.app/sitemap.xml
+Sitemap: https://www.kadakeggs.in/sitemap.xml

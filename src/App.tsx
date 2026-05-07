@@ -4,6 +4,7 @@ import { Menu, X, ShoppingCart, MessageCircle, ChevronRight, Heart, ShieldCheck,
 import { BRAND_NAME, TAGLINE, WHATSAPP_NUMBER, PRODUCT_PACKS, FAQS, COMPARISON_DATA, BENEFITS, CONTACT_EMAIL, CONTACT_ADDRESS, FSSAI_LICENSE_NUMBER, FSSAI_LICENSE_TEXT, SERVICE_AREAS } from './constants';
 import { ProteinCalculator } from './components/ProteinCalculator';
 import { SubscriptionSection } from './components/SubscriptionSection';
+import { ProductPackSection } from './components/ProductPackSection';
 import { TermsPage, PrivacyPage } from './components/LegalPages';
 
 // --- Components ---
@@ -719,102 +720,7 @@ const HomePage = ({ setActivePage }: { setActivePage: (page: string) => void }) 
       </section>
 
       {/* Pack Options */}
-      <section id="products" className="py-12 md:py-24 bg-brand-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 md:mb-16">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6 text-brand-black">Choose Your Pack</h2>
-            <p className="text-sm md:text-base text-gray-600">Premium nutrition delivered in convenient sizes.</p>
-            <div className="mt-5 flex items-center justify-center gap-2 md:hidden">
-              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Swipe to compare</span>
-              <motion.span
-                aria-hidden="true"
-                animate={{ x: [0, 10, 0], opacity: [0.6, 1, 0.6] }}
-                transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
-                className="text-gray-400 text-sm"
-              >
-                →
-              </motion.span>
-            </div>
-          </div>
-
-          <div className="relative -mx-4 md:mx-0 overflow-x-hidden">
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-linear-to-r from-brand-white to-transparent md:hidden" aria-hidden="true" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-linear-to-l from-brand-white to-transparent md:hidden" aria-hidden="true" />
-            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 px-4 md:px-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {PRODUCT_PACKS.map((pack) => (
-              <motion.div 
-                key={pack.id} 
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 shadow-md flex flex-col relative group transition-all duration-300 hover:shadow-xl overflow-hidden shrink-0 w-[88%] sm:w-[70%] md:w-auto snap-start"
-              >
-                {pack.isBestValue && (
-                  <div className="bg-brand-gold text-brand-black px-3 md:px-4 py-2 text-center text-[10px] font-black tracking-widest uppercase shadow-sm">
-                    Best Value Pack
-                  </div>
-                )}
-                <div className="p-6 md:p-10 pt-6 md:pt-10 flex flex-col grow">
-                  <div className="mb-4 md:mb-6">
-                    <h3 className="text-xl md:text-2xl font-bold mb-1 text-brand-black">{pack.name}</h3>
-                    <p className="text-brand-gold font-bold text-[10px] uppercase tracking-wider">{pack.bestFor}</p>
-                  </div>
-                  <div className="mb-6 md:mb-8 grow">
-                    <div className="relative mb-5 md:mb-6 overflow-hidden rounded-xl md:rounded-2xl border border-gray-100 bg-gray-50">
-                      <img
-                        src={pack.image}
-                        alt={`${pack.name} Kadaknath eggs pack`}
-                        className="w-full h-36 md:h-44 object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="absolute top-2.5 right-2.5 md:top-3 md:right-3 bg-brand-black/85 text-white text-[10px] md:text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
-                        {pack.count} Eggs
-                      </div>
-                    </div>
-                    <p className="text-gray-600 text-xs md:text-sm leading-relaxed mb-6 md:mb-8">{pack.description}</p>
-                    <h4 className="text-[10px] font-black text-brand-black uppercase tracking-[0.2em] mb-3 md:mb-4">Key Features</h4>
-                    <ul className="space-y-2 md:space-y-3">
-                      {['100% Original Kadaknath', 'Fresh from Farm', 'Hygienically Packed'].map((feature, fIdx) => (
-                        <li key={fIdx} className="flex items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-700">
-                          <CheckCircle2 size={16} className="text-brand-green shrink-0 md:w-4.5 md:h-4.5" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="pt-6 md:pt-8 border-t border-gray-100 mb-6 md:mb-8">
-                    <div className="flex justify-between items-end mb-3 md:mb-4">
-                      <div>
-                        <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-1">Price per egg</p>
-                        <p className="text-lg md:text-xl font-bold text-brand-black">₹{pack.pricePerEgg}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-1">Total Price</p>
-                        <p className="text-2xl md:text-3xl font-black text-brand-black">₹{pack.totalPrice}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-medium bg-gray-50 p-2 rounded-lg">
-                      <Truck size={14} className="text-brand-gold" />
-                      {pack.deliveryNote}
-                    </div>
-                  </div>
-
-                  <a 
-                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=I want to order the ${pack.name}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="btn-whatsapp w-full py-4 shadow-lg shadow-[#25D366]/10 hover:shadow-[#25D366]/20"
-                  >
-                    <MessageCircle size={20} />
-                    Order Now
-                  </a>
-                </div>
-              </motion.div>
-            ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProductPackSection />
 
       <SubscriptionSection />
 
